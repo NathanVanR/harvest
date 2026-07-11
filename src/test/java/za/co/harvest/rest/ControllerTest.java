@@ -1,39 +1,42 @@
-package za.co.harvest.service;
+package za.co.harvest.rest;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.test.StepVerifier;
 import za.co.harvest.entity.Product;
-import za.co.harvest.repository.ProductRepository;
 
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-@Slf4j
-public class ProductServiceTest {
+public class ControllerTest {
 
     @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private ProductService productService;
+    private WebClient webClient;
 
     @Test
-    public void testCreateProduct() {
+    public void testAddProduct() {
         var inputProduct = new Product();
         inputProduct.setProductId(UUID.randomUUID().toString());
         inputProduct.setName("productName");
         inputProduct.setDescription("productDescription");
         inputProduct.setPrice(30d);
-        var monoProduct = productRepository.save(inputProduct);
-        StepVerifier.create(monoProduct)
+        var savedProductMono = webClient.post()
+                .uri("/products")
+                .bodyValue(inputProduct)
+                .retrieve()
+                .bodyToMono(Product.class);
+
+        StepVerifier.create(savedProductMono)
                 .assertNext(savedProduct -> {
+                    assertNotNull(savedProduct);
                     assertEquals(inputProduct.getProductId(), savedProduct.getProductId());
-                    log.info("Saved product details: {}", savedProduct);
+                    assertEquals("productName", savedProduct.getName());
+                    System.out.println("Inspected Product ID: " + savedProduct.getProductId());
                 })
                 .verifyComplete();
     }

@@ -1,0 +1,13 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: harvest
+  cloud:
+    gcp:
+      firestore:
+        project-id: local-test-project
+        emulator:
+          enabled: true
+        host-port: localhost:8082

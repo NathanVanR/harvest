@@ -2,19 +2,24 @@ package za.co.harvest.controller;
 
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import reactor.core.publisher.Mono;
 import za.co.harvest.entity.Product;
 import org.springframework.web.bind.annotation.RestController;
-import za.co.harvest.repository.ProductRepository;
+import za.co.harvest.service.ProductService;
 
 @RestController
+@CrossOrigin
 public class ProductController {
 
 
+    @Autowired
+    private ProductService productService;
 
-
-//    public ResponseEntity<Product> addProduct(@NonNull Product product) {
-//        productRepository.save(product);
-//        return ResponseEntity.ok().body(product);
-//    }
+    @PostMapping("/products")
+    public Mono<Product> createProduct(@NonNull @RequestBody Product product) {
+        return productService.addProduct(product);
+    }
 }

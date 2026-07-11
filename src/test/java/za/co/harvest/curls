@@ -1,0 +1,2 @@
+# ===== AddProduct ===== #
+Invoke-RestMethod -Uri "http://localhost:8081/products" -Method Post -ContentType "application/json" -Body '{"productId":"12345-test-id","name":"Delicious Apples","description":"Freshly harvested red apples","price":30.0}'

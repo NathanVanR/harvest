@@ -8,8 +8,8 @@ import java.util.UUID;
 
 @Data
 public class Order {
-    private UUID orderId;
-    private UUID buyerId;
+    private String orderId;
+    private String buyerId;
     private LocalDateTime orderDate;
     private List<OrderItem> orderItems;
     private Double totalPrice;
