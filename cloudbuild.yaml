@@ -7,6 +7,7 @@ steps:
       - |
         ./mvnw spring-boot:build-image \
         "-Dspring-boot.build-image.imageName=us-central1-docker.pkg.dev/harvest-cf246/harvest-repo/harvest-backend:latest" \
+        "-Dspring-boot.build-image.env.BP_JVM_VERSION=17" \
         -DskipTests
 
   # Step 2: Push the completed image to Artifact Registry
