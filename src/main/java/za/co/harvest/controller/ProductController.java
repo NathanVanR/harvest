@@ -23,6 +23,6 @@ public class ProductController {
 
     @GetMapping("/products")
     public Flux<Product> getAllProducts() {
-        return null;
+        return  null;
     }
 }
