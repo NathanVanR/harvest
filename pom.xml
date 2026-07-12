@@ -10,7 +10,7 @@
 		<relativePath/>
 	</parent>
 
-	<groupId>com.harvest</groupId>
+	<groupId>za.co.harvest</groupId>
 	<artifactId>harvest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>harvest</name>
@@ -23,9 +23,16 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>com.fasterxml.jackson</groupId>
+				<artifactId>jackson-bom</artifactId>
+				<version>2.21.2</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
 				<groupId>com.google.cloud</groupId>
 				<artifactId>spring-cloud-gcp-dependencies</artifactId>
-				<version>5.13.0</version>
+				<version>8.0.3</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -35,7 +42,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
 		<dependency>

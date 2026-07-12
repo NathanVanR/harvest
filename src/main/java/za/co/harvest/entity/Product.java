@@ -10,7 +10,7 @@ import java.util.UUID;
 @Document(collectionName = "products")
 public class Product {
     @DocumentId
-    private UUID productId;
+    private String productId;
     private String name;
     private String description;
     private Double price;

@@ -6,8 +6,8 @@ import java.util.UUID;
 
 @Data
 public class OrderItem {
-    private UUID sellerId;
-    private UUID productId;
+    private String sellerId;
+    private String productId;
     private Integer quantity;
     private Double unitPriceAtPurchase;
 }

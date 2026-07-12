@@ -1,6 +1,11 @@
 server:
-  port: 8081
-
+  port: ${PORT:8081}
 spring:
   application:
     name: harvest
+  cloud:
+    gcp:
+      firestore:
+        project-id: ${GOOGLE_CLOUD_PROJECT}
+        emulator:
+          enabled: false

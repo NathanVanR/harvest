@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Data
 public class Seller {
-    private UUID sellerId;
+    private String sellerId;
     private String firstName;
     private String lastName;
     private String email;
