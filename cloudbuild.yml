@@ -1,0 +1,27 @@
+steps:
+  # Step 1: Compile the Java application and build the image via the Maven Buildpack
+  - name: 'gcr.io/cloud-builders/mvn'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        ./mvnw spring-boot:build-image \
+        "-Dspring-boot.build-image.imageName=us-central1-docker.pkg.dev/harvest-cf246/harvest-repo/harvest-backend:latest" \
+        -DskipTests
+
+  # Step 2: Push the completed image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/harvest-cf246/harvest-repo/harvest-backend:latest']
+
+  # Step 3: Tell Cloud Run to pull down the newly updated image tag
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'harvest-backend-service'
+      - '--image=us-central1-docker.pkg.dev/harvest-cf246/harvest-repo/harvest-backend:latest'
+      - '--region=us-central1'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

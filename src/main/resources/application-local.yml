@@ -7,7 +7,7 @@ spring:
   cloud:
     gcp:
       firestore:
-        project-id: local-test-project
+        project-id: ${GCP_PROJECT_ID}
         emulator:
           enabled: true
         host-port: localhost:8082
